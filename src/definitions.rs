@@ -30,5 +30,8 @@ pub fn random_in_unit_sphere() -> Vector3<f64> {
         }
         return p;
     }
-    random_vec(-1.0, 1.0)
+}
+
+pub fn random_unit_vector() -> Vector3<f64> {
+    random_in_unit_sphere().normalize()
 }

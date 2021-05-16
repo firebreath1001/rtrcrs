@@ -1,6 +1,8 @@
 use nalgebra::Vector3;
 
-use crate::{Color, definitions::random_in_unit_sphere, HitRecord, Hittable, HittableList, INFINITY};
+use crate::{
+    definitions::random_unit_vector, Color, HitRecord, Hittable, HittableList, INFINITY,
+};
 
 /// Defines an alias for Vector3, used to define a point in 3-dimensional co-ordinate space.
 pub type Point3 = Vector3<f64>;
@@ -39,7 +41,7 @@ impl Ray {
         if depth <= 0 {
             Color::new(0.0, 0.0, 0.0)
         } else if world.hit(self, 0.001, INFINITY, &mut rec) {
-            let target = rec.point + rec.normal + random_in_unit_sphere();
+            let target = rec.point + rec.normal + random_unit_vector();
             0.5 * Ray::new(rec.point, target - rec.point).color(&world, depth-1)
         } else {
             let unit_dir = self.dir.normalize();
